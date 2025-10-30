@@ -36,7 +36,7 @@ def get_pages(source: str, page: str = 'world'):
 
 
 @app.get('/news/{source}', response_model=FeedsResponse, responses={404: {"model": ErrorResponse}})
-def get_news(source: str, page: str = 'world', category: str = ''):
+def get_news(source: str, page: str = 'world', category: str = '', subcategory: str = ''):
     """
     Get news feeds from a specific source, page, and category
 
@@ -44,10 +44,11 @@ def get_news(source: str, page: str = 'world', category: str = ''):
         source: News source (e.g., 'reuters', 'bbc')
         page: Page identifier (default: 'world')
         category: Category identifier (default: 'africa')
+        subcategory: SubCategory identifier (default: '')
     """
     try:
         scraper = ScraperFactory.get_scraper(source)
-        data = scraper.scrape_feeds(page, category)
+        data = scraper.scrape_feeds(page, category, subcategory)
         return data
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

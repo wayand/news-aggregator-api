@@ -21,6 +21,7 @@ class FeedItem(BaseModel):
     """Model for a news feed item"""
     id: str = Field(description="Unique identifier (content-based hash of link)")
     category: Optional[str] = None
+    subcategory: Optional[str] = None
     title: Optional[str] = None
     link: Optional[str] = None
     image: Optional[str] = None
@@ -33,6 +34,7 @@ class FeedsResponse(BaseModel):
     source: str
     page: str
     category: str
+    subcategory: str
     items: list[FeedItem]
 
 
